@@ -16,6 +16,8 @@ public:
   int spriteIndex_x, spriteIndex_y;
   float alpha;
 
+  float flipAngle, flipSpeed;
+
   explicit Snowflake();
   // UPDATE
   void update(float deltaTime, SnowPile &pile);
