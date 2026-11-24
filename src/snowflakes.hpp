@@ -1,8 +1,10 @@
 #pragma once
 
 #include "raylib.h"
+#include "snow_pile.hpp"
 #include <vector>
 
+// -----------------------------------------------------------
 class Snowflake {
 public:
   Vector2 position;
@@ -15,12 +17,14 @@ public:
   float alpha;
 
   explicit Snowflake();
+  // UPDATE
+  void update(float deltaTime, SnowPile &pile);
 
-  void update(float deltaTime);
-
+  // DRAW
   void draw(Texture2D &tex) const;
 };
 
+// -----------------------------------------------------------
 class AllSnowflakes {
 public:
   static constexpr int size = 100;
@@ -28,12 +32,14 @@ public:
 
   AllSnowflakes() : data(size) {}
 
-  void update(float dt) {
+  // UPDATE
+  void update(float dt, SnowPile &pile) {
     for (auto &sf : data) {
-      sf.update(dt);
+      sf.update(dt, pile);
     }
   }
 
+  // DRAW
   void draw(Texture2D &tex) {
     for (auto const &sf : data) {
       sf.draw(tex);

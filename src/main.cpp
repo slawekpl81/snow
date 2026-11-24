@@ -1,7 +1,10 @@
+#include "dev_print.hpp"
+#include "raylib.h"
+#include "snow_pile.hpp"
 #include "snowflakes.hpp"
 
-#include "raylib.h"
-
+#include <cstddef>
+#include <cstdio>
 #include <print>
 
 int main() {
@@ -10,19 +13,24 @@ int main() {
   SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_UNDECORATED |
                  FLAG_WINDOW_MOUSE_PASSTHROUGH | FLAG_WINDOW_TOPMOST);
   // ----------------------------------------------
-  int monitor = GetCurrentMonitor();
-  int screenWidth = GetMonitorWidth(monitor);
-  int screenHeight = GetMonitorHeight(monitor);
-  // ----------------------------------------------
-  InitWindow(screenWidth, screenHeight, "WinterScreen");
+  InitWindow(0, 0, "WinterScreen");
   SetWindowPosition(0, 0);
   // ----------------------------------------------
   SetTargetFPS(60);
+  // ----------------------------------------------
+  int monitor = GetCurrentMonitor();
+  int screenWidth = GetMonitorWidth(monitor);
+  int screenHeight = GetMonitorHeight(monitor);
+  // print_val(screenWidth, "main screenWidth");
+  // print_val(screenHeight, "main screenHeight");
   // ----------------------------------------------
   Texture2D snowflakesTextures = LoadTexture("assets/snowflakes.png");
   // ----------------------------------------------
   AllSnowflakes snowflakes;
   // ----------------------------------------------
+  SnowPile snowPile(screenWidth, screenHeight);
+  std::println(stdout, "[DEV] Created SnowPile size= {}",
+               snowPile.columns.size());
   // ----------------------------------------------
   // ----------------------------------------------
   // MAIN LOOP
@@ -30,9 +38,14 @@ int main() {
     auto deltaTime = GetFrameTime();
     // UPDATE
     // ----------------------------------------------
-    snowflakes.update(deltaTime);
+    snowflakes.update(deltaTime, snowPile);
     // ----------------------------------------------
+    snowPile.update();
     // ----------------------------------------------
+    //
+    if (IsKeyPressed(KEY_SPACE))
+      for (size_t i = 0; i < snowPile.columns.size(); ++i)
+        std::println(stdout, "[DEV] col.{} = {}", i, snowPile.columns[i]);
     // ----------------------------------------------
     // ----------------------------------------------
     // ----------------------------------------------
@@ -46,9 +59,10 @@ int main() {
     // ----------------------------------------------
     ClearBackground(BLANK);
     // ----------------------------------------------
+    snowPile.draw();
+    // ----------------------------------------------
+    // ----------------------------------------------
     snowflakes.draw(snowflakesTextures);
-    // ----------------------------------------------
-    // ----------------------------------------------
     // ----------------------------------------------
     // ----------------------------------------------
     // ----------------------------------------------
