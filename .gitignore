@@ -1,0 +1,73 @@
+# ==========================================
+# xmake
+# ==========================================
+.xmake/
+build/
+xmake-build/
+compile_commands.json
+
+# ==========================================
+# Kompilacja C / C23 (GCC / Clang / Binutils)
+# ==========================================
+*.o
+*.obj
+*.ko
+*.elf
+*.ilk
+*.map
+*.exp
+
+# Biblioteki statyczne i współdzielone
+*.a
+*.lib
+*.la
+*.lo
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Pliki prekompilowane i debugowania
+*.gch
+*.pch
+*.d
+*.gcno
+*.gcda
+*.gcov
+*.profraw
+*.profdata
+core
+core.*
+vgcore.*
+
+# Pliki wykonywalne (bez rozszerzenia na Linuksie)
+# Uwaga: Odkomentuj poniższe, jeśli trzymasz binarki w głównym katalogu
+# a.out
+# main
+
+# ==========================================
+# Narzędzia deweloperskie (Fedora / Linux)
+# ==========================================
+# Clangd / LSP
+.cache/
+.clangd/
+
+# Ctags / Cscope
+tags
+cscope.*
+
+# ==========================================
+# Edytory i IDE
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Pliki systemowe (Linux)
+# ==========================================
+.directory
+.Trash-*
+
