@@ -12,7 +12,11 @@ int main() {
   // ----------------------------------------------
   SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_UNDECORATED |
                  FLAG_WINDOW_MOUSE_PASSTHROUGH | FLAG_WINDOW_TOPMOST);
-  // ----------------------------------------------
+// ----------------------------------------------
+#ifdef NDEBUG
+  SetTraceLogLevel(LOG_NONE);
+#endif
+
   InitWindow(0, 0, "WinterScreen");
   SetWindowPosition(0, 0);
   // ----------------------------------------------
@@ -29,8 +33,11 @@ int main() {
   AllSnowflakes snowflakes;
   // ----------------------------------------------
   SnowPile snowPile(screenWidth, screenHeight);
+#ifdef DEBUG
   std::println(stdout, "[DEV] Created SnowPile size= {}",
                snowPile.columns.size());
+#endif
+
   // ----------------------------------------------
   // ----------------------------------------------
   // MAIN LOOP
